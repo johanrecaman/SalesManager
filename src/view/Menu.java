@@ -23,6 +23,5 @@ public class Menu {
         System.out.println("List all products [4]");
         System.out.println("List all sales [5]");
         System.out.println("Exit [6]");
-        
    }
 }
