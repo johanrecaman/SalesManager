@@ -1,0 +1,66 @@
+package src.models;
+
+import java.time.LocalDate;
+
+public class Salesman extends User{
+
+    private String lastname;
+    private LocalDate birthDate;
+    private String phone;
+    private String cpf;
+    private String city;
+    private String state;
+    private String country;
+    private String address;
+    private LocalDate registrationDate;
+
+    public Salesman(String name, String lastname, String email, String password, LocalDate birthDate, String phone, String cpf, 
+                    String city, String state, String country, String address, LocalDate registrationDate) {
+        super(name, email, password);
+        this.lastname = lastname;
+        this.birthDate = birthDate;
+        this.phone = phone;
+        this.cpf = cpf;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.address = address;
+        this.registrationDate = registrationDate;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+}
