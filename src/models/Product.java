@@ -5,13 +5,13 @@ public class Product {
     private String description;
     private int quantity;
     private double price;
-    private Supplier supplier;
+    private int supplierId;
 
-   public Product(String description, int quantity, double price, Supplier supplier){
+   public Product(String description, int quantity, double price, int supplierId){
          this.description = description;
          this.quantity = quantity;
          this.price = price;
-         this.supplier = supplier;
+         this.supplierId = supplierId;
    } 
 
     public String getDescription() {
@@ -26,7 +26,7 @@ public class Product {
         return price;
     }
 
-    public Supplier getSupplier() {
-        return supplier;
+    public int getSupplierId() {
+        return supplierId;
     }
 }

@@ -2,8 +2,12 @@ package src.models;
 
 import java.time.LocalDate;
 
-public class Supplier extends User {
+public class Supplier{
 
+    private int id;
+    private String name;
+    private String email;
+    private String password;
     private String companyName;
     private String taxId;
     private String phoneNumber;
@@ -13,9 +17,12 @@ public class Supplier extends User {
     private String address;
     private LocalDate registrationDate;
 
-    public Supplier(String name, String email, String password, String companyName, String taxId, String phoneNumber, 
+    public Supplier(int id, String name, String email, String password, String companyName, String taxId, String phoneNumber, 
                     String city, String state, String country, String address, LocalDate registrationDate) {
-        super(name, email, password);
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
         this.companyName = companyName;
         this.taxId = taxId;
         this.phoneNumber = phoneNumber;
@@ -24,6 +31,22 @@ public class Supplier extends User {
         this.country = country;
         this.address = address;
         this.registrationDate = registrationDate;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getCompanyName() {

@@ -1,20 +1,25 @@
-package src.view;
+package src.views;
 
 public class MenuView {
 
-     private void clearScreen() {  
+     public void clearScreen() {  
         System.out.print("\033[H\033[2J");  
         System.out.flush();
      }
 
-     public void showMenu(){
+     public void showHomeOptions(){
           clearScreen();
           System.out.println("Add [1]");
           System.out.println("List [2]");
           System.out.println("Daily report [3]");
           System.out.println("logout [4]");
    }
-     public void showAddMenu(){
+   public void showInvalidOption(){
+          clearScreen();
+          System.out.println("Invalid option");
+       }
+
+     public void showAddOptions(){
           clearScreen(); 
           System.out.println("Add admin [1]");
           System.out.println("Add salesman [2]");
@@ -24,7 +29,7 @@ public class MenuView {
           System.out.println("Add sale [6]");
           System.out.println("Exit [7]");
    }
-     public void showListMenu(){
+     public void showListOptions(){
           clearScreen();
           System.out.println("List all salesmen [1]");
           System.out.println("List all customers [2]");
@@ -33,6 +38,7 @@ public class MenuView {
           System.out.println("List all sales [5]");
           System.out.println("Exit [6]");
    }
+
    public void showLogout(){
           clearScreen();
           System.out.println("logging out...");

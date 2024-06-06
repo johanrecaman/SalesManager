@@ -2,8 +2,11 @@ package src.models;
 
 import java.time.LocalDate;
 
-public class Salesman extends User{
+public class Salesman{
 
+    private String name;
+    private String email;
+    private String password;
     private String lastname;
     private LocalDate birthDate;
     private String phone;
@@ -16,7 +19,9 @@ public class Salesman extends User{
 
     public Salesman(String name, String lastname, String email, String password, LocalDate birthDate, String phone, String cpf, 
                     String city, String state, String country, String address, LocalDate registrationDate) {
-        super(name, email, password);
+        this.name = name;
+        this.email = email;
+        this.password = password;
         this.lastname = lastname;
         this.birthDate = birthDate;
         this.phone = phone;
@@ -26,6 +31,18 @@ public class Salesman extends User{
         this.country = country;
         this.address = address;
         this.registrationDate = registrationDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getLastname() {

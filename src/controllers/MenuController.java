@@ -1,23 +1,26 @@
-package src.controller;
-import src.view.MenuView;
+package src.controllers;
+import src.views.MenuView;
 import java.util.Scanner;
 
 public class MenuController {
-    Scanner scanner = new Scanner(System.in); 
-    MenuView menu = new MenuView();
+    private Scanner scanner = new Scanner(System.in);
+    private MenuView menu = new MenuView();
+    private AdminController adminController = new AdminController();
+    private CustomerController customerController = new CustomerController();
+    private ProductController productController = new ProductController();
+    private SupplierController supplierController = new SupplierController();
 
-    public void run(){
-
+    public void run() {
         while (true) {
-            menu.showMenu();
+            menu.showHomeOptions();
             int choice = getUserChoice();
 
             switch (choice) {
                 case 1:
-                    addMenu();
+                    addOptions();
                     break;
                 case 2:
-                    listMenu();
+                    listOptions();
                     break;
                 case 3:
                     handleDailyReport();
@@ -26,84 +29,88 @@ public class MenuController {
                     handleLogout();
                     break;
                 default:
-                    System.out.println("Invalid option");
+                    menu.showInvalidOption();
                     break;
-            }     
+            }
+        }
     }
-   } 
-    private int getUserChoice(){
+
+    private int getUserChoice() {
         int choice = -1;
-        try{
+        try {
             choice = scanner.nextInt();
-        }catch(Exception e){
+            scanner.nextLine();
+        } catch (Exception e) {
             System.out.println("Invalid option");
             scanner.nextLine();
         }
         return choice;
     }
-    public void addMenu(){
-       menu.showAddMenu();
-       int choice = getUserChoice();
-       switch (choice) {
-        case 1:
-            System.out.println("Add admin");
-            break;
-        case 2:
-            System.out.println("Add salesman");
-            break;
-        case 3:
-            System.out.println("Add customer");
-            break;
-        case 4:
-            System.out.println("Add supplier");
-            break;
-        case 5:
-            System.out.println("Add product");
-            break;
-        case 6:
-            System.out.println("Add sale");
-            break;
-        case 7:
-            System.out.println("Exit");
-            break;
-        default:
-            System.out.println("Invalid option");
-            break;
-       }
+
+    private void addOptions() {
+        menu.showAddOptions();
+
+        int choice = getUserChoice();
+        switch (choice) {
+            case 1:
+                adminController.addAdmin();
+                break;
+            case 2:
+
+                break;
+            case 3:
+                customerController.addCustomer(); 
+                break;
+            case 4:
+                supplierController.addSupplier();
+                break;
+            case 5:
+                productController.addProduct();
+                break;
+            case 6:
+                
+                break;
+            case 7:
+                break;
+            default:
+                System.out.println("Invalidi option");
+                break;
+        }
     }
-    public void listMenu(){
-       menu.showListMenu();
-       int choice = getUserChoice();
-         switch (choice) {
-          case 1:
-                System.out.println("List all salesmen");
+
+    private void listOptions() {
+        menu.showListOptions();
+        int choice = getUserChoice();
+        switch (choice) {
+            case 1:
+                
                 break;
-          case 2:
-                System.out.println("List all customers");
+            case 2:
+                
                 break;
-          case 3:
-                System.out.println("List all suppliers");
+            case 3:
+                
                 break;
-          case 4:
-                System.out.println("List all products");
+            case 4:
+                
                 break;
-          case 5:
-                System.out.println("List all sales");
+            case 5:
+
                 break;
-          case 6:
-                System.out.println("Exit");
+            case 6:
                 break;
-          default:
+            default:
                 System.out.println("Invalid option");
                 break;
-         }
+        }
     }
-    public void handleDailyReport(){
+
+    private void handleDailyReport() {
         System.out.println("Daily report");
     }
-    public void handleLogout(){
+
+    private void handleLogout() {
         menu.showLogout();
-        scanner.close();
         System.exit(0);
     }
 }
