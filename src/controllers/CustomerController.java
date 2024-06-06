@@ -16,7 +16,7 @@ public class CustomerController {
    public void addCustomer(){
        Customer customer = new Customer("", "", "", "", LocalDate.now(), "", "", "", "", "","", LocalDate.now());
        CustomerDAO customerDAO = new CustomerDAO();
-         MenuView menu = new MenuView();
+       MenuView menu = new MenuView();
 
        Class<?> customerClass = customer.getClass();
        Field[] fields = customerClass.getDeclaredFields();
