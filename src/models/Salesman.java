@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 public class Salesman{
 
+    private int id;
     private String name;
     private String email;
     private String password;
@@ -17,8 +18,8 @@ public class Salesman{
     private String address;
     private LocalDate registrationDate;
 
-    public Salesman(String name, String lastname, String email, String password, LocalDate birthDate, String phone, String cpf, 
-                    String city, String state, String country, String address, LocalDate registrationDate) {
+    public Salesman(int id, String name, String lastname, String email, String password, LocalDate birthDate,  String phone, String cpf, String city, String state, String country, String address, LocalDate registrationDate) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -33,6 +34,10 @@ public class Salesman{
         this.registrationDate = registrationDate;
     }
 
+    public int getId() {
+        return id;
+    }
+    
     public String getName() {
         return name;
     }

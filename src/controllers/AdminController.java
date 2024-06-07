@@ -9,12 +9,12 @@ import src.models.Admin;
 import src.dao.AdminDAO;
 
 public class AdminController {
-    Scanner scanner = new Scanner(System.in);
-
+    private Scanner scanner = new Scanner(System.in);
+    private Admin admin = new Admin("", "", "");
+    private AdminDAO adminDAO = new AdminDAO();
+    private MenuView menu = new MenuView();
+    
     public void addAdmin(){
-        Admin admin = new Admin("", "", "");
-        AdminDAO adminDAO = new AdminDAO();
-        MenuView menu = new MenuView();
 
         Class<?> adminClass = admin.getClass();
         Field[] fields = adminClass.getDeclaredFields();

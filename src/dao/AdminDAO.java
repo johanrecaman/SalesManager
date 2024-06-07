@@ -7,7 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class AdminDAO {
-    private static final String ADD_ADMIN_SQL = "INSERT INTO Admin (name, email, password) VALUES (?, ?, ?)";
+    private final String ADD_ADMIN_SQL = "INSERT INTO Admin (name, email, password) VALUES (?, ?, ?)";
 
     public void addAdmin(Admin admin){
         Connection connection = Database.getConnection();

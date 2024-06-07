@@ -14,10 +14,9 @@ import src.dao.SupplierDAO;
 public class ProductController {
     Scanner scanner = new Scanner(System.in);
     MenuView menu = new MenuView();
-
+    Product product = new Product("", 0, 0.0, 0);
+    ProductDAO productDAO = new ProductDAO();
     public void addProduct(){
-        Product product = new Product("", 0, 0.0, 0);
-        ProductDAO productDAO = new ProductDAO();
 
         Class<?> productClass = product.getClass();
         Field[] fields = productClass.getDeclaredFields();

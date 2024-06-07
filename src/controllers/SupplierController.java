@@ -11,12 +11,12 @@ import src.models.Supplier;
 import src.dao.SupplierDAO;
 
 public class SupplierController {
-    Scanner scanner = new Scanner(System.in);
-
+    private Scanner scanner = new Scanner(System.in);
+    private Supplier supplier = new Supplier(-1, "", "", "", "", "", "", "", "", "", "", null);
+    private SupplierDAO supplierDAO = new SupplierDAO();
+    private MenuView menu = new MenuView();
+    
     public void addSupplier(){
-        Supplier supplier = new Supplier(-1, "", "", "", "", "", "", "", "", "", "", null);
-        SupplierDAO supplierDAO = new SupplierDAO();
-        MenuView menu = new MenuView();
 
         Class<?> supplierClass = supplier.getClass();
         Field[] fields = supplierClass.getDeclaredFields();

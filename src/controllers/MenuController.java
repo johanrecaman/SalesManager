@@ -9,6 +9,7 @@ public class MenuController {
     private CustomerController customerController = new CustomerController();
     private ProductController productController = new ProductController();
     private SupplierController supplierController = new SupplierController();
+    private SalesmanController salesmanController = new SalesmanController();
 
     public void run() {
         while (true) {
@@ -56,7 +57,7 @@ public class MenuController {
                 adminController.addAdmin();
                 break;
             case 2:
-
+                salesmanController.addSalesman();
                 break;
             case 3:
                 customerController.addCustomer(); 

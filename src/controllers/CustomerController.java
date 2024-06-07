@@ -11,12 +11,12 @@ import src.models.Customer;
 import src.dao.CustomerDAO;
 
 public class CustomerController {
-   Scanner scanner = new Scanner(System.in);
+   private Scanner scanner = new Scanner(System.in);
+   private Customer customer = new Customer("", "", "", "", LocalDate.now(), "", "", "", "", "","", LocalDate.now());
+   private CustomerDAO customerDAO = new CustomerDAO();
+   private MenuView menu = new MenuView();
    
    public void addCustomer(){
-       Customer customer = new Customer("", "", "", "", LocalDate.now(), "", "", "", "", "","", LocalDate.now());
-       CustomerDAO customerDAO = new CustomerDAO();
-       MenuView menu = new MenuView();
 
        Class<?> customerClass = customer.getClass();
        Field[] fields = customerClass.getDeclaredFields();
@@ -24,7 +24,7 @@ public class CustomerController {
        for(Field field: fields){
            field.setAccessible(true);
            boolean validInput = false;
-
+ 
            while(!validInput){
                 if(field.getName().equals("id")){
                     validInput = true;
