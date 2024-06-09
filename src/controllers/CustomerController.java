@@ -12,7 +12,7 @@ import src.dao.CustomerDAO;
 
 public class CustomerController {
    private Scanner scanner = new Scanner(System.in);
-   private Customer customer = new Customer("", "", "", "", LocalDate.now(), "", "", "", "", "","", LocalDate.now());
+   private Customer customer = new Customer(-1,"", "", "", "", LocalDate.now(), "", "", "", "", "","", LocalDate.now());
    private CustomerDAO customerDAO = new CustomerDAO();
    private MenuView menu = new MenuView();
    

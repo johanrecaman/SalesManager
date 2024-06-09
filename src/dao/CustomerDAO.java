@@ -10,8 +10,9 @@ public class CustomerDAO {
     private static final String ADD_CUSTOMER_SQL = 
     "INSERT INTO Customer (name, lastname, email, password, birthDate, phone, cpf, city, state, country, address, registrationDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+    Connection connection = Database.getConnection();
+    
     public void addCustomer(Customer customer){
-        Connection connection = Database.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_CUSTOMER_SQL);
             preparedStatement.setString(1, customer.getName());
