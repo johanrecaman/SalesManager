@@ -10,6 +10,7 @@ import src.models.Sale;
 import src.models.Product;
 import src.models.Customer;
 
+
 import src.dao.SaleDAO;
 
 
@@ -87,6 +88,8 @@ public class SaleController {
                 }                
             }
         }
+
+        
     }
     
 }
