@@ -25,12 +25,16 @@ public class SaleController {
         Class<?> saleClass = sale.getClass();
         Field[] fields = saleClass.getDeclaredFields();
 
+        List<String> paymentMethods = List.of("Cash", "Credit Card", "Debit Card");
+
+        List<String> skipNames = List.of("id", "interestRate", "totalValue", "installments");
+
         for(Field field: fields){
             field.setAccessible(true);
             boolean validInput = false;
 
             while (!validInput) {
-                if (field.getName().equals("id")) {
+                if (skipNames.contains(field.getName())) {
                     validInput = true;
                     continue;
                 }
@@ -38,7 +42,22 @@ public class SaleController {
                 System.out.println("Enter " + field.getName() + ": ");
                 try {
                     if (field.getType() == String.class) {
-                        field.set(sale, scanner.nextLine());
+                        System.out.println("Available payment methods: ");
+
+                        int i = 0;
+                        for (String paymentMethod: paymentMethods) {
+                            System.out.println(i + " - " + paymentMethod);
+                            i++;
+                        }
+                        
+                        int payChoice = Integer.parseInt(scanner.nextLine());
+
+                        if(paymentMethods.get(payChoice) == "Credit Card"){
+                            skipNames.remove("installments");
+                        }
+
+                        field.set(sale, paymentMethods.get(payChoice));
+
                         validInput = true;
                     }
                     else if (field.getType() == int.class){

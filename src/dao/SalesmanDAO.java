@@ -36,7 +36,7 @@ public class SalesmanDAO {
         }
     }
 
-    public List<Salesman> getSalesman (){
+    public List<Salesman> getSalesmen (){
         List<Salesman> salesmans = new ArrayList<>();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(READ_SALESMAN_SQL);

@@ -3,6 +3,7 @@ package src.controllers;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.List;
 
 import src.views.MenuView;
 
@@ -50,6 +51,10 @@ public class SalesmanController {
             }
         }
         salesmanDAO.addSalesman(salesman);
+    }
+
+    public List<Salesman> getSalesmen() {
+        return salesmanDAO.getSalesmen();
     }
 
 }

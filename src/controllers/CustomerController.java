@@ -1,5 +1,6 @@
 package src.controllers;
 
+import java.util.List;
 import java.util.Scanner;
 import java.lang.reflect.Field;
 import java.time.LocalDate;
@@ -56,4 +57,7 @@ public class CustomerController {
        customerDAO.addCustomer(customer);
    }
 
+   public List<Customer> getCustomers(){
+       return customerDAO.getCustomers();
+   }
 }
