@@ -10,12 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class SupplierDAO {
-    private static final String ADD_SUPPLIER_SQL = "INSERT INTO Supplier (name, email, password, companyName, taxId, phoneNumber, city, state, country, address, registrationDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    Connection connection = Database.getConnection();
+    
+    private final String ADD_SUPPLIER_SQL = "INSERT INTO Supplier (name, email, password, companyName, taxId, phoneNumber, city, state, country, address, registrationDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final String READ_SUPPLIERS_SQL = "SELECT * FROM Supplier";
 
     public void addSupplier(Supplier supplier){
-        Connection connection = Database.getConnection();
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_SUPPLIER_SQL);
+
             preparedStatement.setString(1, supplier.getName());
             preparedStatement.setString(2, supplier.getEmail());
             preparedStatement.setString(3, supplier.getPassword());
@@ -35,9 +38,7 @@ public class SupplierDAO {
 
     public List<Supplier> getSuppliers(){
         List<Supplier> suppliers = new ArrayList<>();
-        Connection connection = Database.getConnection();
         try {
-            String READ_SUPPLIERS_SQL = "SELECT * FROM Supplier";
             PreparedStatement preparedStatement = connection.prepareStatement(READ_SUPPLIERS_SQL);
             ResultSet result = preparedStatement.executeQuery();
 
