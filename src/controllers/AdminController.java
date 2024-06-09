@@ -10,7 +10,7 @@ import src.dao.AdminDAO;
 
 public class AdminController {
     private Scanner scanner = new Scanner(System.in);
-    private Admin admin = new Admin("", "", "");
+    private Admin admin = new Admin(-1,"", "", "");
     private AdminDAO adminDAO = new AdminDAO();
     private MenuView menu = new MenuView();
     

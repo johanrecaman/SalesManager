@@ -9,23 +9,24 @@ import src.views.MenuView;
 import src.models.Product;
 import src.models.Supplier;
 import src.dao.ProductDAO;
-import src.dao.SupplierDAO;
 
 public class ProductController {
     Scanner scanner = new Scanner(System.in);
     MenuView menu = new MenuView();
-    Product product = new Product("", 0, 0.0, 0);
+    Product product = new Product(-1, "", 0, 0.0, 0);
     ProductDAO productDAO = new ProductDAO();
+
     public void addProduct(){
 
         Class<?> productClass = product.getClass();
         Field[] fields = productClass.getDeclaredFields();
 
         for(Field field: fields){
+
             field.setAccessible(true);
             boolean validInput = false;
 
-            while(!validInput){
+            while(!validInput){ 
                 if(field.getName().equals("id")){
                     validInput = true;
                     continue;
@@ -39,8 +40,8 @@ public class ProductController {
                     }
                     else if (field.getType() == int.class){
                         if (field.getName().equals("supplierId")) {
-                            SupplierDAO supplierDAO = new SupplierDAO();
-                            List<Supplier> suppliers = supplierDAO.getSuppliers();
+                            SupplierController supplierController = new SupplierController();
+                            List<Supplier> suppliers = supplierController.getSuppliers();
                             
                             System.out.println("Available suppliers: ");
                             for (Supplier supplier: suppliers) {

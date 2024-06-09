@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import java.util.List;
 
 import src.views.MenuView;
 
@@ -55,4 +56,11 @@ public class SupplierController {
         }
         supplierDAO.addSupplier(supplier);
     }
+
+    public List<Supplier> getSuppliers(){
+        return supplierDAO.getSuppliers();
+    }
+
+    
+    
 }

@@ -3,6 +3,7 @@ package src.models;
 import java.time.LocalDate;
 
 public class Customer{
+    private int id;
     private String name;
     private String email;
     private String password;
@@ -16,8 +17,8 @@ public class Customer{
     private String address;
     private LocalDate registrationDate;
 
-    public Customer(String name, String lastname, String email, String password, LocalDate birthDate, String phone, String cpf, 
-                    String city, String state, String country, String address, LocalDate registrationDate) {
+    public Customer(int id,String name, String lastname, String email, String password, LocalDate birthDate, String phone, String cpf, String city, String state, String country, String address, LocalDate registrationDate) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -30,6 +31,10 @@ public class Customer{
         this.country = country;
         this.address = address;
         this.registrationDate = registrationDate;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {

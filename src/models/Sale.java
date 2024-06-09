@@ -1,6 +1,8 @@
+package src.models;
+
 public class Sale {
     private int id;
-    private int clientId;
+    private int customerId;
     private int productId;
     private String paymentMethod;
     private int installments;
@@ -8,9 +10,9 @@ public class Sale {
     private double totalValue;
     private double price;
 
-    public Sale(int id, int clientId, int productId, String paymentMethod, int installments, double interestRate, double price) {
+    public Sale(int id, int customerId, int productId, String paymentMethod, int installments, double interestRate, double price) {
         this.id = id;
-        this.clientId = clientId;
+        this.customerId = customerId;
         this.productId = productId;
         this.paymentMethod = paymentMethod;
         this.installments = installments;
@@ -23,8 +25,8 @@ public class Sale {
         return id;
     }
 
-    public int getClientId() {
-        return clientId;
+    public int getCustomerId() {
+        return customerId;
     }
 
     public int getProductId() {

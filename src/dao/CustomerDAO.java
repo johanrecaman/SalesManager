@@ -14,6 +14,8 @@ public class CustomerDAO {
     private static final String ADD_CUSTOMER_SQL = "INSERT INTO Customer (name, lastname, email, password, birthDate, phone, cpf, city, state, country, address, registrationDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String READ_CUSTOMERS_SQL = "SELECT * FROM Customer";
 
+    Connection connection = Database.getConnection();
+    
     public void addCustomer(Customer customer){
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_CUSTOMER_SQL);
