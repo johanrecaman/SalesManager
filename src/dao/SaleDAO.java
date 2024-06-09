@@ -3,8 +3,11 @@ package src.dao;
 import src.config.Database;
 import src.models.Sale;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 public class SaleDAO {
     private static final String ADD_SALE = "INSERT INTO sales (customer_id, product_id, payment_method, installments, interest_rate, total_value, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -26,5 +29,28 @@ public class SaleDAO {
             e.printStackTrace();
         }
     }
+    
+    public List<Sale> getSales(){
+        List<Sale> sales = new ArrayList<>();
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM sales");
+            ResultSet result = preparedStatement.executeQuery();
 
+            while(result.next()){
+                Sale sale = new Sale(
+                    result.getInt("id"),
+                    result.getInt("customer_id"),
+                    result.getInt("product_id"),
+                    result.getString("payment_method"),
+                    result.getInt("installments"),
+                    result.getDouble("interest_rate"),
+                    result.getDouble("price")
+                );
+                sales.add(sale);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return sales;
+    }
 }
