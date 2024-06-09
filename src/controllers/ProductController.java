@@ -2,6 +2,7 @@ package src.controllers;
 
 import java.lang.reflect.Field;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.List;
 
 import src.views.MenuView;
@@ -39,17 +40,30 @@ public class ProductController {
                         validInput = true;
                     }
                     else if (field.getType() == int.class){
+                        List<Integer> ids = new ArrayList<>();
                         if (field.getName().equals("supplierId")) {
+
                             SupplierController supplierController = new SupplierController();
                             List<Supplier> suppliers = supplierController.getSuppliers();
                             
                             System.out.println("Available suppliers: ");
                             for (Supplier supplier: suppliers) {
                                 System.out.println(supplier.getId() + " - " + supplier.getName());
+                                ids.add(supplier.getId());
+                            }
+                            int choice = Integer.parseInt(scanner.nextLine());
+                            if(ids.contains(choice)){
+                                field.set(product, choice);
+                                validInput = true;
+                            }
+                            else{
+                                System.out.println("Invalid supplier id");
                             }
                         }
-                        field.set(product, Integer.parseInt(scanner.nextLine()));
-                        validInput = true;
+                        else{
+                            field.set(product, scanner.nextInt());
+                            validInput = true;
+                        }
                     }
                     else if (field.getType() == double.class){
                         field.set(product, scanner.nextDouble());

@@ -54,7 +54,7 @@ public class SaleController {
                         
                         int payChoice = Integer.parseInt(scanner.nextLine());
 
-                        if(paymentMethods.get(1).equals("Credit Card")){
+                        if(payChoice == 1){
                             skipNames.remove(3);
                         }
 
@@ -62,6 +62,7 @@ public class SaleController {
                         validInput = true;
                     }
                     else if (field.getType() == int.class){
+                        List<Integer> ids = new ArrayList<>();                       
                         if (field.getName().equals("productId")) {
                             ProductController productController = new ProductController();
                             List<Product> products = productController.getProducts();
@@ -69,6 +70,7 @@ public class SaleController {
                             System.out.println("Available products: ");
                             for (Product product: products) {
                                 System.out.println(product.getId() + " - " + product.getDescription());
+                                ids.add(product.getId());
                             }
                         }
                         else if (field.getName().equals("customerId")) {
@@ -78,10 +80,18 @@ public class SaleController {
                             System.out.println("Available customers: ");
                             for (Customer customer: customers) {
                                 System.out.println(customer.getId() + " - " + customer.getName());
+                                ids.add(customer.getId());
+                            }
+                            int choice = Integer.parseInt(scanner.nextLine());
+                            if(ids.contains(choice)){
+                                field.set(sale, choice);
+                                validInput = true;
                             }
                         }
-                        field.set(sale, Integer.parseInt(scanner.nextLine()));
-                        validInput = true;
+                        else{
+                            field.set(sale, Integer.parseInt(scanner.nextLine()));
+                            validInput = true;
+                        }
                     }
                     else if (field.getType() == double.class){
                         field.set(sale, Double.parseDouble(scanner.nextLine()));
