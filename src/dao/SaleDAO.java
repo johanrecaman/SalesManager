@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 public class SaleDAO {
     Connection connection = Database.getConnection();
 
-    private final String ADD_SALE = "INSERT INTO sales (customer_id, product_id, payment_method, installments, interest_rate, total_value, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
-    private final String READ_SALES = "SELECT * FROM sales";
+    private final String ADD_SALE = "INSERT INTO Sale (customer_id, product_id, payment_method, installments, interest_rate, total_value, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private final String READ_SALES = "SELECT * FROM Sale";
 
     public void addSale(Sale sale){
         try{
@@ -44,8 +44,9 @@ public class SaleDAO {
                     result.getInt("product_id"),
                     result.getString("payment_method"),
                     result.getInt("installments"),
-                    result.getDouble("interest_rate"),
-                    result.getDouble("price")
+                    result.getInt("interest_rate"),
+                    result.getDouble("price"),
+                    result.getDouble("total_value")
                 );
                 sales.add(sale);
             }

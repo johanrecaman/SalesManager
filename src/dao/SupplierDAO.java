@@ -17,20 +17,20 @@ public class SupplierDAO {
 
     public void addSupplier(Supplier supplier){
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(ADD_SUPPLIER_SQL);
+            PreparedStatement sqlScript = connection.prepareStatement(ADD_SUPPLIER_SQL);
 
-            preparedStatement.setString(1, supplier.getName());
-            preparedStatement.setString(2, supplier.getEmail());
-            preparedStatement.setString(3, supplier.getPassword());
-            preparedStatement.setString(4, supplier.getCompanyName());
-            preparedStatement.setString(5, supplier.getTaxId());
-            preparedStatement.setString(6, supplier.getPhoneNumber());
-            preparedStatement.setString(7, supplier.getCity());
-            preparedStatement.setString(8, supplier.getState());
-            preparedStatement.setString(9, supplier.getCountry());
-            preparedStatement.setString(10, supplier.getAddress());
-            preparedStatement.setDate(11, java.sql.Date.valueOf(supplier.getRegistrationDate()));
-            preparedStatement.executeUpdate();
+            sqlScript.setString(1, supplier.getName());
+            sqlScript.setString(2, supplier.getEmail());
+            sqlScript.setString(3, supplier.getPassword());
+            sqlScript.setString(4, supplier.getCompanyName());
+            sqlScript.setString(5, supplier.getTaxId());
+            sqlScript.setString(6, supplier.getPhoneNumber());
+            sqlScript.setString(7, supplier.getCity());
+            sqlScript.setString(8, supplier.getState());
+            sqlScript.setString(9, supplier.getCountry());
+            sqlScript.setString(10, supplier.getAddress());
+            sqlScript.setDate(11, java.sql.Date.valueOf(supplier.getRegistrationDate()));
+            sqlScript.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,8 +39,8 @@ public class SupplierDAO {
     public List<Supplier> getSuppliers(){
         List<Supplier> suppliers = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(READ_SUPPLIERS_SQL);
-            ResultSet result = preparedStatement.executeQuery();
+            PreparedStatement sqlScript = connection.prepareStatement(READ_SUPPLIERS_SQL);
+            ResultSet result = sqlScript.executeQuery();
 
             while(result.next()){
                 Supplier supplier = new Supplier(

@@ -6,19 +6,19 @@ public class Sale {
     private int productId;
     private String paymentMethod;
     private int installments;
-    private double interestRate;
-    private double totalValue;
+    private int interestRate;
     private double price;
+    private double totalValue;
 
-    public Sale(int id, int customerId, int productId, String paymentMethod, int installments, double interestRate, double price) {
+    public Sale(int id, int customerId, int productId, String paymentMethod, int installments, int interestRate, double price, double totalValue) {
         this.id = id;
         this.customerId = customerId;
         this.productId = productId;
         this.paymentMethod = paymentMethod;
         this.installments = installments;
         this.interestRate = interestRate;
-        this.totalValue = calculateTotalValue();
         this.price = price;
+        this.totalValue = totalValue;
     }
 
     public int getId() {
@@ -42,6 +42,7 @@ public class Sale {
     }
 
     public double getInterestRate() {
+        this.interestRate = calculateInterestRate();
         return interestRate;
     }
 
@@ -50,11 +51,18 @@ public class Sale {
     }
 
     public double getTotalValue() {
+        this.totalValue = calculateTotalValue();
         return totalValue;
     }
 
-    public double calculateTotalValue() {
-        double totalValue = price * Math.pow(1 + (interestRate / 100), installments);
-        return totalValue;
+    private double calculateTotalValue() {
+        return price + (price * calculateInterestRate() / 100);
+    }
+
+    private int calculateInterestRate(){
+        if (installments > 5){
+            return 5;
+        }
+        return 0;
     }
 }

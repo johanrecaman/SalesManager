@@ -2,6 +2,7 @@ package src.controllers;
 
 import java.lang.reflect.Field;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.List;
 
 import src.views.MenuView;
@@ -18,7 +19,7 @@ public class SaleController {
     Scanner scanner = new Scanner(System.in);
     MenuView menu = new MenuView();
 
-    Sale sale = new Sale(-1, -1, -1, "", -1, -1, -1);
+    Sale sale = new Sale(-1, -1, -1, "", 1, -1, -1, -1);
     SaleDAO saleDAO = new SaleDAO();
 
     public void addSale(){
@@ -28,7 +29,7 @@ public class SaleController {
 
         List<String> paymentMethods = List.of("Cash", "Credit Card", "Debit Card");
 
-        List<String> skipNames = List.of("id", "interestRate", "totalValue", "installments");
+        List<String> skipNames = new ArrayList<>(List.of("id", "interestRate", "totalValue", "installments"));
 
         for(Field field: fields){
             field.setAccessible(true);
@@ -42,7 +43,7 @@ public class SaleController {
                 menu.clearScreen();
                 System.out.println("Enter " + field.getName() + ": ");
                 try {
-                    if (field.getType() == String.class) {
+                    if (field.getName().equals("paymentMethod")) {
                         System.out.println("Available payment methods: ");
 
                         int i = 0;
@@ -53,12 +54,11 @@ public class SaleController {
                         
                         int payChoice = Integer.parseInt(scanner.nextLine());
 
-                        if(paymentMethods.get(payChoice) == "Credit Card"){
-                            skipNames.remove("installments");
+                        if(paymentMethods.get(1).equals("Credit Card")){
+                            skipNames.remove(3);
                         }
 
                         field.set(sale, paymentMethods.get(payChoice));
-
                         validInput = true;
                     }
                     else if (field.getType() == int.class){
@@ -81,6 +81,10 @@ public class SaleController {
                             }
                         }
                         field.set(sale, Integer.parseInt(scanner.nextLine()));
+                        validInput = true;
+                    }
+                    else if (field.getType() == double.class){
+                        field.set(sale, Double.parseDouble(scanner.nextLine()));
                         validInput = true;
                     }
                 } catch (Exception e) {

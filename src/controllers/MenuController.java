@@ -94,30 +94,35 @@ public class MenuController {
                 for (Salesman salesman : salesmen) {
                     System.out.println(salesman.getId() + " - " + salesman.getName());
                 }
+                getUserChoice();
                 break;
             case 2:
                 List<Customer> customers = customerController.getCustomers();
                 for (Customer customer : customers) {
                     System.out.println(customer.getId() + " - " + customer.getName());
                 }
+                getUserChoice();
                 break;
             case 3:
                 List<Supplier> suppliers = supplierController.getSuppliers();
                 for (Supplier supplier : suppliers) {
                     System.out.println(supplier.getId() + " - " + supplier.getName());
                 }
+                getUserChoice();
                 break;
             case 4:
                 List<Product> products = productController.getProducts();
                 for (Product product : products) {
                     System.out.println(product.getId() + " - " + product.getDescription());
                 }
+                getUserChoice();
                 break;
             case 5:
                 List<Sale> sales = saleController.getSales();
                 for (Sale sale : sales) {
                     System.out.println(sale.getId() + " - " + sale.getPaymentMethod());
                 }
+                getUserChoice();
                 break;
             case 6:
                 break;
