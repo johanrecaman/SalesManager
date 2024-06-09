@@ -88,8 +88,10 @@ public class SaleController {
                 }                
             }
         }
-
-        
+        saleDAO.addSale(sale);   
     }
-    
+
+    public List<Sale> getSales(){
+        return saleDAO.getSales();
+    }
 }

@@ -10,41 +10,42 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class ProductDAO {
-   private static final String ADD_PRODUCT_SQL = "INSERT INTO Product (description, quantity, price, supplier_id) VALUES (?, ?, ?, ?)";
+     Connection connection = Database.getConnection();
+
+     private final String ADD_PRODUCT_SQL = "INSERT INTO Product (description, quantity, price, supplier_id) VALUES (?, ?, ?, ?)";
+     private final String READ_PRODUCT_SQL = "SELECT * FROM Product";
    
     public void addProduct(Product product){
-         Connection connection = Database.getConnection();
          try {
-              PreparedStatement preparedStatement = connection.prepareStatement(ADD_PRODUCT_SQL);
-              preparedStatement.setString(1, product.getDescription());
-              preparedStatement.setInt(2, product.getQuantity());
-              preparedStatement.setDouble(3, product.getPrice());
-              preparedStatement.setInt(4, product.getSupplierId());
-              preparedStatement.executeUpdate();
+              PreparedStatement sqlScript = connection.prepareStatement(ADD_PRODUCT_SQL);
+              sqlScript.setString(1, product.getDescription());
+              sqlScript.setInt(2, product.getQuantity());
+              sqlScript.setDouble(3, product.getPrice());
+              sqlScript.setInt(4, product.getSupplierId());
+              sqlScript.executeUpdate();
          } catch (Exception e) {
               e.printStackTrace();
          }
     }
 
      public List<Product> getProducts(){
-          Connection connection = Database.getConnection();
           List<Product> products = new ArrayList<>();
-           try {
-                 PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM Product");
-                 ResultSet result = preparedStatement.executeQuery();
-     
-                 while(result.next()){
-                       Product product = new Product(
+          try {
+               PreparedStatement sqlScript = connection.prepareStatement(READ_PRODUCT_SQL);
+               ResultSet result = sqlScript.executeQuery();
+
+               while(result.next()){
+                    Product product = new Product(
                          result.getInt("id"),
                          result.getString("description"),
                          result.getInt("quantity"),
                          result.getDouble("price"),
                          result.getInt("supplier_id")
-                       );
-                       products.add(product);
-                 }
+                    );
+                    products.add(product);
+               }
            } catch (Exception e) {
-                 e.printStackTrace();
+               e.printStackTrace();
            }
            return products;
      }

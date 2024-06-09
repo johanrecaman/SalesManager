@@ -62,4 +62,8 @@ public class ProductController {
         }
         productDAO.addProduct(product);
     }
+
+    public List<Product> getProducts(){
+        return productDAO.getProducts();
+    }
 }

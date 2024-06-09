@@ -10,21 +10,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class SaleDAO {
-    private static final String ADD_SALE = "INSERT INTO sales (customer_id, product_id, payment_method, installments, interest_rate, total_value, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
     Connection connection = Database.getConnection();
 
-    public void addCustomer(Sale sale){
+    private final String ADD_SALE = "INSERT INTO sales (customer_id, product_id, payment_method, installments, interest_rate, total_value, price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private final String READ_SALES = "SELECT * FROM sales";
+
+    public void addSale(Sale sale){
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement(ADD_SALE);
-            preparedStatement.setInt(1, sale.getCustomerId());
-            preparedStatement.setInt(2, sale.getProductId());
-            preparedStatement.setString(3, sale.getPaymentMethod());
-            preparedStatement.setInt(4, sale.getInstallments());
-            preparedStatement.setDouble(5, sale.getInterestRate());
-            preparedStatement.setDouble(6, sale.getTotalValue());
-            preparedStatement.setDouble(7, sale.getPrice());
-            preparedStatement.executeUpdate();
+            PreparedStatement sqlScript = connection.prepareStatement(ADD_SALE);
+            sqlScript.setInt(1, sale.getCustomerId());
+            sqlScript.setInt(2, sale.getProductId());
+            sqlScript.setString(3, sale.getPaymentMethod());
+            sqlScript.setInt(4, sale.getInstallments());
+            sqlScript.setDouble(5, sale.getInterestRate());
+            sqlScript.setDouble(6, sale.getTotalValue());
+            sqlScript.setDouble(7, sale.getPrice());
+            sqlScript.executeUpdate();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -33,8 +34,8 @@ public class SaleDAO {
     public List<Sale> getSales(){
         List<Sale> sales = new ArrayList<>();
         try{
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM sales");
-            ResultSet result = preparedStatement.executeQuery();
+            PreparedStatement sqlScript = connection.prepareStatement(READ_SALES);
+            ResultSet result = sqlScript.executeQuery();
 
             while(result.next()){
                 Sale sale = new Sale(

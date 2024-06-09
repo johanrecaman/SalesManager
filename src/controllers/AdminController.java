@@ -1,6 +1,7 @@
 package src.controllers;
 
 import java.lang.reflect.Field;
+import java.util.List;
 import java.util.Scanner;
 
 import src.views.MenuView;
@@ -40,4 +41,8 @@ public class AdminController {
         }
         adminDAO.addAdmin(admin);
     } 
+
+    public List<Admin> getAdmins(){
+        return adminDAO.getAdmins();
+    }
 }

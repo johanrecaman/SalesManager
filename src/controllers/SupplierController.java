@@ -60,7 +60,4 @@ public class SupplierController {
     public List<Supplier> getSuppliers(){
         return supplierDAO.getSuppliers();
     }
-
-    
-    
 }
