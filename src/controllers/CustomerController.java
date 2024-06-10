@@ -59,6 +59,55 @@ public class CustomerController {
        customerDAO.addCustomer(customer);
    }
 
+    public void updateCustomer(int id){
+         Customer customer = customerDAO.getCustomer(id);
+         if(customer == null){
+              System.out.println("Customer not found");
+              return;
+         }
+    
+         Class<?> customerClass = customer.getClass();
+         Field[] fields = customerClass.getDeclaredFields();
+
+            for(Field field: fields){
+                field.setAccessible(true);
+                boolean validInput = false;
+    
+                while(!validInput){
+                    if(field.getName().equals("id")){
+                        validInput = true;
+                        continue;
+                    }
+                    menu.clearScreen();
+                    System.out.println("Enter " + field.getName() + ": ");
+                    try {
+                        if (field.getType() == String.class) {
+                            field.set(customer, scanner.nextLine());
+                            validInput = true;
+                        }
+                        else if (field.getType() == LocalDate.class){
+                            String dateInput = scanner.nextLine();
+                            try{
+                                LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                                field.set(customer, date);
+                                validInput = true;
+                            }
+                            catch(Exception e){
+                                System.out.println("Invalid date format. Please use dd-MM-yyyy");
+                            }
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            customerDAO.updateCustomer(customer);
+        }
+
+    public void deleteCustomer(int id){
+        customerDAO.deleteCustomer(id);
+    }
+
    public List<Customer> getCustomers(){
        return customerDAO.getCustomers();
    }
