@@ -78,67 +78,72 @@ public class ProductController {
     }
 
     public void updateProduct(int id){
-        Product product = productDAO.getProductById(id);
-        if(product == null){
+        Product updatedProduct = productDAO.getProductById(id);
+        if (updatedProduct == null) {
             System.out.println("Product not found");
             return;
         }
 
-        Class<?> productClass = product.getClass();
+        Class<?> productClass = updatedProduct.getClass();
         Field[] fields = productClass.getDeclaredFields();
 
-        for(Field field: fields){
+        for (Field field : fields) {
             field.setAccessible(true);
             boolean validInput = false;
 
-            while(!validInput){
-                if(field.getName().equals("id")){
-                    validInput = true;
-                    continue;
+            while (!validInput) {
+            if (field.getName().equals("id")) {
+                validInput = true;
+                continue;
+            }
+            menu.clearScreen();
+            System.out.println("Enter " + field.getName() + " (leave empty to keep current value): ");
+            try {
+                if (field.getType() == String.class) {
+                String input = scanner.nextLine();
+                if (!input.isEmpty()) {
+                    field.set(updatedProduct, input);
                 }
-                menu.clearScreen();
-                System.out.println("Enter " + field.getName() + ": ");
-                try {
-                    if (field.getType() == String.class) {
-                        field.set(product, scanner.nextLine());
-                        validInput = true;
-                    }
-                    else if (field.getType() == int.class){
-                        List<Integer> ids = new ArrayList<>();
-                        if (field.getName().equals("supplierId")) {
+                validInput = true;
+                } else if (field.getType() == int.class) {
+                List<Integer> ids = new ArrayList<>();
+                if (field.getName().equals("supplierId")) {
 
-                            SupplierController supplierController = new SupplierController();
-                            List<Supplier> suppliers = supplierController.getSuppliers();
-                            
-                            System.out.println("Available suppliers: ");
-                            for (Supplier supplier: suppliers) {
-                                System.out.println(supplier.getId() + " - " + supplier.getName());
-                                ids.add(supplier.getId());
-                            }
-                            int choice = Integer.parseInt(scanner.nextLine());
-                            if(ids.contains(choice)){
-                                field.set(product, choice);
-                                validInput = true;
-                            }
-                            else{
-                                System.out.println("Invalid supplier id");
-                            }
-                        }
-                        else{
-                            field.set(product, scanner.nextInt());
-                            validInput = true;
-                        }
+                    SupplierController supplierController = new SupplierController();
+                    List<Supplier> suppliers = supplierController.getSuppliers();
+
+                    System.out.println("Available suppliers: ");
+                    for (Supplier supplier : suppliers) {
+                    System.out.println(supplier.getId() + " - " + supplier.getName());
+                    ids.add(supplier.getId());
                     }
-                    else if (field.getType() == double.class){
-                        field.set(product, scanner.nextDouble());
-                        validInput = true;
+                    int choice = Integer.parseInt(scanner.nextLine());
+                    if (ids.contains(choice)) {
+                    field.set(updatedProduct, choice);
+                    } else {
+                    System.out.println("Invalid supplier id");
+                    continue;
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } else {
+                    String input = scanner.nextLine();
+                    if (!input.isEmpty()) {
+                    field.set(updatedProduct, Integer.parseInt(input));
+                    }
                 }
+                validInput = true;
+                } else if (field.getType() == double.class) {
+                String input = scanner.nextLine();
+                if (!input.isEmpty()) {
+                    field.set(updatedProduct, Double.parseDouble(input));
+                }
+                validInput = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             }
         }
-        productDAO.updateProduct(product);
+        productDAO.updateProduct(updatedProduct);
     }
 
     public void deleteProduct(int id){
