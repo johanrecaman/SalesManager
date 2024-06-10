@@ -57,49 +57,54 @@ public class SupplierController {
         supplierDAO.addSupplier(supplier);
     }
 
-    public void updateSupplier(int id){
-        Supplier supplier = supplierDAO.getSupplier(id);
-        if(supplier == null){
-            System.out.println("Supplier not found");
-            return;
-        }
+        public void updateSupplier(int id){
+            Supplier existingSupplier = supplierDAO.getSupplier(id);
+            if (existingSupplier == null) {
+                System.out.println("Supplier not found.");
+                return;
+            }
 
-        Class<?> supplierClass = supplier.getClass();
-        Field[] fields = supplierClass.getDeclaredFields();
+            Class<?> supplierClass = existingSupplier.getClass();
+            Field[] fields = supplierClass.getDeclaredFields();
 
-        for(Field field: fields){
-            field.setAccessible(true);
-            boolean validInput = false;
+            for (Field field : fields) {
+                field.setAccessible(true);
+                boolean validInput = false;
 
-            while(!validInput){
-                if(field.getName().equals("id")){
-                    validInput = true;
-                    continue;
-                }
-                menu.clearScreen();
-                System.out.println("Enter " + field.getName() + ": ");
-                try {
-                    if (field.getType() == String.class) {
-                        field.set(supplier, scanner.nextLine());
+                while (!validInput) {
+                    if (field.getName().equals("id")) {
                         validInput = true;
+                        continue;
                     }
-                    else if (field.getType() == LocalDate.class){
-                        String dateInput = scanner.nextLine();
-                        try{
-                            LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                            field.set(supplier, date);
+                    menu.clearScreen();
+                    System.out.println("Enter " + field.getName() + " (leave empty to keep current value): ");
+                    try {
+                        if (field.getType() == String.class) {
+                            String input = scanner.nextLine();
+                            if (!input.isEmpty()) {
+                                field.set(existingSupplier, input);
+                            }
+                            validInput = true;
+                        } else if (field.getType() == LocalDate.class) {
+                            String dateInput = scanner.nextLine();
+                            if (!dateInput.isEmpty()) {
+                                try {
+                                    LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                                    field.set(existingSupplier, date);
+                                } catch (Exception e) {
+                                    System.out.println("Invalid date format. Please use dd-MM-yyyy");
+                                    continue;
+                                }
+                            }
                             validInput = true;
                         }
-                        catch(Exception e){
-                            System.out.println("Invalid date format. Please use dd-MM-yyyy");
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
+            supplierDAO.updateSupplier(existingSupplier);
         }
-    }
 
     public void deleteSupplier(int id){
         supplierDAO.deleteSupplier(id);
