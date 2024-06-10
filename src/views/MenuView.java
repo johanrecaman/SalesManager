@@ -6,8 +6,6 @@ import src.models.DailyReport;
 
 public class MenuView {
 
-       private Scanner scanner = new Scanner(System.in);
-
        public void clearScreen() {  
         System.out.print("\033[H\033[2J");  
         System.out.flush();
@@ -71,6 +69,12 @@ public class MenuView {
 
               showExit();
        }
+
+       public void showPermissionDenied(){
+              clearScreen();
+              System.out.println("Permission denied");
+              System.out.println("Press enter to continue...");
+         }
 
         public void showLogout(){
           clearScreen();

@@ -8,11 +8,17 @@ import java.util.List;
 import src.views.MenuView;
 
 import src.models.Salesman;
+import src.models.User;
+
 import src.dao.SalesmanDAO;
+import src.dao.UserDAO;
 
 public class SalesmanController {
     private Salesman salesman = new Salesman(-1,"", "", "", "", LocalDate.now(), "", "", "", "", "", "", LocalDate.now());
+
     private SalesmanDAO salesmanDAO = new SalesmanDAO();
+    private UserDAO userDAO = new UserDAO();
+
     private MenuView menuView = new MenuView();
     private Scanner scanner = new Scanner(System.in);
 
@@ -50,15 +56,22 @@ public class SalesmanController {
                 }
             }
         }
+        User user = new User(-1, salesman.getEmail(), salesman.getPassword(), "salesman");
+
         salesmanDAO.addSalesman(salesman);
+        userDAO.addUser(user);
     }
 
     public void updateSalesman(int id){
         Salesman salesman = salesmanDAO.getSalesman(id);
+
         if(salesman == null){
             System.out.println("Salesman not found");
             return;
         }
+
+        User user = userDAO.getUserByEmail(salesman.getEmail());
+
         Class<?> salesmanClass = Salesman.class;
         Field[] fields = salesmanClass.getDeclaredFields();
 
@@ -105,6 +118,11 @@ public class SalesmanController {
                 }
             }
         }
+
+        user.setEmail(salesman.getEmail());
+        user.setPassword(salesman.getPassword());
+
+        userDAO.updateUser(user);
         salesmanDAO.updateSalesman(salesman);
     }
 

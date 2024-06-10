@@ -19,6 +19,8 @@ public class MenuController {
     private SalesmanController salesmanController = new SalesmanController();
     private SaleController saleController = new SaleController();
 
+    private Boolean isAdmin = false;
+
     public void run() {
         while (true) {
             menu.showHomeOptions();
@@ -62,7 +64,12 @@ public class MenuController {
         int choice = getUserChoice();
         switch (choice) {
             case 1:
-                adminController.addAdmin();
+                if (isAdmin) {
+                    adminController.addAdmin();
+                }
+                else{
+                    menu.showPermissionDenied();
+                }
                 break;
             case 2:
                 salesmanController.addSalesman();
