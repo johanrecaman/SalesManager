@@ -42,6 +42,41 @@ public class AdminController {
         adminDAO.addAdmin(admin);
     } 
 
+    public void updateAdmin(int id){
+        Admin admin = adminDAO.getAdminById(id);
+        if(admin == null){
+            System.out.println("Admin not found");
+            return;
+        }
+        Class<?> adminClass = admin.getClass();
+        Field[] fields = adminClass.getDeclaredFields();
+
+        for(Field field: fields){
+            field.setAccessible(true);
+            boolean validInput = false;
+
+            while(!validInput){
+                if(field.getName().equals("id")){
+                    validInput = true;
+                    continue;
+                }
+                menu.clearScreen();
+                System.out.println("Enter " + field.getName() + ": ");
+                try {
+                    field.set(admin, scanner.nextLine());
+                    validInput = true;
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        adminDAO.updateAdmin(admin);
+    }
+
+    public void deleteAdmin(int id){
+        adminDAO.deleteAdmin(id);
+    }
+
     public List<Admin> getAdmins(){
         return adminDAO.getAdmins();
     }
