@@ -97,10 +97,11 @@ public class MenuController {
     private void listOptions() {
         menu.showListOptions();
         int choice = getUserChoice();
+        String editChoice = "";
         switch (choice) {
             case 1:
                 listSalesman();
-                String editChoice = scanner.nextLine();
+                editChoice = scanner.nextLine();
                 if(editChoice == ""){
                     break;
                 }
@@ -111,19 +112,39 @@ public class MenuController {
                 break;
             case 2:
                 listCustomers();
-                menu.showEditOptions();
+                editChoice = scanner.nextLine();
+                if (editChoice == "") {
+                    break;
+                }
+                else{
+                    menu.showEditOptions();
+                    editCustomer(editChoice);
+                }
                 break;
             case 3:
                 listSuppliers();
-                menu.showEditOptions();
+                editChoice = scanner.nextLine();
+                if (editChoice == "") {
+                    break;
+                }
+                else{
+                    menu.showEditOptions();
+                    editSupplier(editChoice);
+                }
                 break;
             case 4:
                 listProducts();
-                menu.showEditOptions();
+                editChoice = scanner.nextLine();
+                if (editChoice == "") {
+                    break;
+                }
+                else{
+                    menu.showEditOptions();
+                    editProduct(editChoice);
+                }
                 break;
             case 5:
                 listSales();
-                menu.showEditOptions();
                 break;
             case 6:
                 break;
@@ -218,42 +239,46 @@ public class MenuController {
         }
     }
 
-    private void editCustomer(){
+    private void editCustomer(String input){
+        int id = Integer.parseInt(input);
         int choice = getUserChoice();
         switch (choice) {
             case 1:
-                //customerController.editCustomer();
+                customerController.updateCustomer(id);
                 break;
             case 2:
-                //customerController.deleteCustomer();
+                customerController.deleteCustomer(id);
                 break;
             default:
                 break;
         }
     }
 
-    private void editSupplier(){
+    private void editSupplier(String input){
+        int id = Integer.parseInt(input);
         int choice = getUserChoice();
+
         switch (choice) {
             case 1:
-                //supplierController.editSupplier();
+                supplierController.updateSupplier(id);
                 break;
             case 2:
-                //supplierController.deleteSupplier();
+                supplierController.deleteSupplier(id);
                 break;
             default:
                 break;
         }
     }
 
-    private void editProduct(){
+    private void editProduct(String input){
+        int id = Integer.parseInt(input);
         int choice = getUserChoice();
         switch (choice) {
             case 1:
-                //productController.editProduct();
+                productController.updateProduct(id);
                 break;
             case 2:
-                //productController.deleteProduct();
+                productController.deleteProduct(id);
                 break;
             default:
                 break;
