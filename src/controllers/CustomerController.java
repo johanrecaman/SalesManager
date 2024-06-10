@@ -79,21 +79,32 @@ public class CustomerController {
                         continue;
                     }
                     menu.clearScreen();
-                    System.out.println("Enter " + field.getName() + ": ");
                     try {
-                        if (field.getType() == String.class) {
-                            field.set(customer, scanner.nextLine());
+                        System.out.println("Enter " + field.getName() + " [" + field.get(customer) + "]:");
+                    } catch (IllegalArgumentException e) {
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        if (field.getType() == String.class){
+                            String input = scanner.nextLine();
+                            if (!input.isEmpty()) {
+                                field.set(customer, input);
+                            }
                             validInput = true;
                         }
                         else if (field.getType() == LocalDate.class){
                             String dateInput = scanner.nextLine();
-                            try{
-                                LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                                field.set(customer, date);
-                                validInput = true;
-                            }
-                            catch(Exception e){
-                                System.out.println("Invalid date format. Please use dd-MM-yyyy");
+                            if(!dateInput.isEmpty()){
+                                try{
+                                    LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                                    field.set(customer, date);
+                                    validInput = true;
+                                }
+                                catch(Exception e){
+                                    System.out.println("Invalid date format. Please use dd-MM-yyyy");
+                                }
                             }
                         }
                     } catch (Exception e) {

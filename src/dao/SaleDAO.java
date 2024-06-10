@@ -17,7 +17,7 @@ public class SaleDAO {
 
     private final String ADD_SALE = "INSERT INTO Sale (customer_id, product_id, payment_method, installments, interest_rate, total_value, price, date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     private final String READ_SALES = "SELECT * FROM Sale";
-    private final String READ_DAILY_SALES = "SELECT * FROM Sale WHERE  = ?";
+    private final String READ_DAILY_SALES = "SELECT * FROM Sale WHERE date = ?";
 
     private final String READ_SALES_BY_ID_SQL = "SELECT * FROM Salesman WHERE id = ?";
     private final String UPDATE_SALES_SQL = "UPDATE Salesman SET customer_id = ?, product_id = ?, payment_method = ?, installments = ?, interest_rate = ?, total_value = ?, price = ?, date = ? WHERE id = ?";

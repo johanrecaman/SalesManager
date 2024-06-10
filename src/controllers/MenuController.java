@@ -69,6 +69,7 @@ public class MenuController {
                 }
                 else{
                     menu.showPermissionDenied();
+                    scanner.nextLine();
                 }
                 break;
             case 2:
@@ -85,6 +86,7 @@ public class MenuController {
                 break;
             case 6:
                 saleController.addSale(); 
+                scanner.nextLine();
                 break;
             case 7:
                 break;
@@ -145,6 +147,7 @@ public class MenuController {
                 break;
             case 5:
                 listSales();
+                scanner.nextLine();
                 break;
             case 6:
                 break;
@@ -163,6 +166,8 @@ public class MenuController {
         DailyReport dailyReport = saleController.getDailyReport(date);
         
         menu.showDailyReport(dailyReport);
+        scanner.nextLine();
+        menu.showExit();
     }
         
     private void listSalesman(){
@@ -215,11 +220,14 @@ public class MenuController {
 
     private void listSales(){
         List<Sale> sales = saleController.getSales();
+        List<Product> products = productController.getProducts();
 
         menu.clearScreen();
 
         for (Sale sale : sales) {
-            System.out.println(sale.getId() + " - " + sale.getPaymentMethod());
+            String productName = products.get(sale.getProductId()).getDescription();
+
+            System.out.println(sale.getId() + " - " + productName + " - " + sale.getDate());
         }
         menu.showExit();
     }

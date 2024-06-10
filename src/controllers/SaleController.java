@@ -63,8 +63,8 @@ public class SaleController {
                         validInput = true;
                     }
                     else if (field.getType() == int.class){
-                        List<Integer> ids = new ArrayList<>();                       
                         if (field.getName().equals("productId")) {
+                            List<Integer> ids = new ArrayList<>();                       
                             ProductController productController = new ProductController();
                             List<Product> products = productController.getProducts();
                             
@@ -73,8 +73,15 @@ public class SaleController {
                                 System.out.println(product.getId() + " - " + product.getDescription());
                                 ids.add(product.getId());
                             }
+                            int choice = Integer.parseInt(scanner.nextLine());
+                            if(ids.contains(choice)){
+                                field.set(sale, choice);
+                                validInput = true;
+                            }
                         }
                         else if (field.getName().equals("customerId")) {
+                            List<Integer> ids = new ArrayList<>();
+                            
                             CustomerController customerController = new CustomerController();
                             List<Customer> customers = customerController.getCustomers();
                             
