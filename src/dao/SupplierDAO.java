@@ -117,8 +117,9 @@ public class SupplierDAO {
             sqlScript.setDate(11, java.sql.Date.valueOf(supplier.getRegistrationDate()));
             sqlScript.setInt(12, supplier.getId());
             sqlScript.executeUpdate();
+            System.out.println("The supplier was updated successfully.");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("The supplier could not be updated.");
         }
     }
 
@@ -127,8 +128,9 @@ public class SupplierDAO {
             PreparedStatement sqlScript = connection.prepareStatement(DELETE_SUPPLIER_SQL);
             sqlScript.setInt(1, id);
             sqlScript.executeUpdate();
+            System.out.println("The supplier was deleted successfully.");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("The supplier could not be deleted.");
         }
     }
 }

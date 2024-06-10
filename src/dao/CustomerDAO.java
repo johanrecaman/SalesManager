@@ -117,8 +117,10 @@ public class CustomerDAO {
             sqlScript.setDate(12, java.sql.Date.valueOf(customer.getRegistrationDate()));
             sqlScript.setInt(13, customer.getId());
             sqlScript.executeUpdate();
+
+            System.out.println("Customer updated successfully.");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error updating customer.");
         }
     }
 
@@ -127,8 +129,9 @@ public class CustomerDAO {
             PreparedStatement sqlScript = connection.prepareStatement(DELETE_CUSTOMER_SQL);
             sqlScript.setInt(1, id);
             sqlScript.executeUpdate();
+            System.out.println("Customer deleted successfully.");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error deleting customer.");
         }
     }
 }

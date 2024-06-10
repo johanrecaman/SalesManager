@@ -12,6 +12,7 @@ public class MenuController {
     private Scanner scanner = new Scanner(System.in);
     private MenuView menu = new MenuView();
 
+    private LoginController login = new LoginController();
     private AdminController adminController = new AdminController();
     private CustomerController customerController = new CustomerController();
     private ProductController productController = new ProductController();
@@ -19,13 +20,42 @@ public class MenuController {
     private SalesmanController salesmanController = new SalesmanController();
     private SaleController saleController = new SaleController();
 
+    private Boolean isLoggedIn = false;
     private Boolean isAdmin = false;
 
     public void run() {
-        while (true) {
+        while (!isLoggedIn) {
+            System.out.println("Enter your email:");
+            String email = scanner.nextLine();
+            menu.clearScreen();
+            System.out.println("Enter your password:");
+            String password = scanner.nextLine();
+
+            String role = login.Authenticate(email, password);
+            
+            if (role.equals("admin")) {
+                isLoggedIn = true;
+                isAdmin = true;
+                home();
+            }
+            else if (role.equals("salesman")) {
+                isLoggedIn = true;
+                isAdmin = false;
+                home();
+            }
+            else{
+                System.out.println("Press enter to try again...");
+                scanner.nextLine();
+                menu.clearScreen();
+            }
+        }
+    }
+    
+    public void home(){
+        while (isLoggedIn) {
             menu.showHomeOptions();
             int choice = getUserChoice();
-
+        
             switch (choice) {
                 case 1:
                     addOptions();
@@ -66,6 +96,8 @@ public class MenuController {
             case 1:
                 if (isAdmin) {
                     adminController.addAdmin();
+                    scanner.nextLine();
+                    menu.showExit();
                 }
                 else{
                     menu.showPermissionDenied();
@@ -74,19 +106,34 @@ public class MenuController {
                 break;
             case 2:
                 salesmanController.addSalesman();
+                scanner.nextLine();
+                menu.showExit();
                 break;
             case 3:
                 customerController.addCustomer(); 
+                scanner.nextLine();
+                menu.showExit();
                 break;
             case 4:
                 supplierController.addSupplier();
+                scanner.nextLine();
+                menu.showExit();
                 break;
             case 5:
                 productController.addProduct();
+                scanner.nextLine();
+                menu.showExit();
                 break;
             case 6:
-                saleController.addSale(); 
-                scanner.nextLine();
+                if (isAdmin) {
+                    saleController.addSale();
+                    scanner.nextLine();
+                    menu.showExit(); 
+                }
+                else{
+                    menu.showPermissionDenied();
+                    scanner.nextLine();
+                }
                 break;
             case 7:
                 break;
@@ -235,12 +282,23 @@ public class MenuController {
     private void editSalesman(String input){
         int id = Integer.parseInt(input);
         int choice = getUserChoice();
+        menu.clearScreen();
         switch (choice) {
             case 1:
                 salesmanController.updateSalesman(id);
+                menu.showExit();
+                scanner.nextLine();
                 break;
             case 2:
-                salesmanController.deleteSalesman(id);
+                if (isAdmin) {
+                    salesmanController.deleteSalesman(id);
+                    menu.showExit();
+                    scanner.nextLine();
+                }
+                else{
+                    menu.showPermissionDenied();
+                    scanner.nextLine();
+                }
                 break;
             default:
                 break;
@@ -250,12 +308,23 @@ public class MenuController {
     private void editCustomer(String input){
         int id = Integer.parseInt(input);
         int choice = getUserChoice();
+        menu.clearScreen();
         switch (choice) {
             case 1:
                 customerController.updateCustomer(id);
+                menu.showExit();
+                scanner.nextLine();
                 break;
             case 2:
-                customerController.deleteCustomer(id);
+                if (isAdmin) {
+                    customerController.deleteCustomer(id);
+                    menu.showExit();
+                    scanner.nextLine();
+                }
+                else{
+                    menu.showPermissionDenied();
+                    scanner.nextLine();
+                }
                 break;
             default:
                 break;
@@ -265,13 +334,23 @@ public class MenuController {
     private void editSupplier(String input){
         int id = Integer.parseInt(input);
         int choice = getUserChoice();
-
+        menu.clearScreen();
         switch (choice) {
             case 1:
                 supplierController.updateSupplier(id);
+                menu.showExit();
+                scanner.nextLine();
                 break;
             case 2:
-                supplierController.deleteSupplier(id);
+                if (isAdmin) {
+                    supplierController.deleteSupplier(id);
+                    menu.showExit();
+                    scanner.nextLine();
+                }
+                else{
+                    menu.showPermissionDenied();
+                    scanner.nextLine();
+                }
                 break;
             default:
                 break;
@@ -281,12 +360,23 @@ public class MenuController {
     private void editProduct(String input){
         int id = Integer.parseInt(input);
         int choice = getUserChoice();
+        menu.clearScreen();
         switch (choice) {
             case 1:
                 productController.updateProduct(id);
+                menu.showExit();
+                scanner.nextLine();
                 break;
             case 2:
-                productController.deleteProduct(id);
+                if (isAdmin) {
+                    productController.deleteProduct(id);
+                    menu.showExit();
+                    scanner.nextLine();
+                }
+                else{
+                    menu.showPermissionDenied();
+                    scanner.nextLine();
+                }
                 break;
             default:
                 break;
@@ -294,7 +384,7 @@ public class MenuController {
     }
 
     private void handleLogout() {
-        menu.showLogout();
-        System.exit(0);
+        menu.clearScreen();
+        isLoggedIn = false;
     }
 }

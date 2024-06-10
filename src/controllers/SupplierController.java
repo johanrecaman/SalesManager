@@ -39,6 +39,7 @@ public class SupplierController {
                         validInput = true;
                     }
                     else if (field.getType() == LocalDate.class){
+                        System.out.println("Enter date format (dd-MM-yyyy):");
                         String dateInput = scanner.nextLine();
                         try{
                             LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));

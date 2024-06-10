@@ -1,7 +1,5 @@
 package src.views;
 
-import java.util.Scanner;
-
 import src.models.DailyReport;
 
 public class MenuView {

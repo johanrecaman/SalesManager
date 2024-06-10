@@ -85,8 +85,9 @@ public class ProductDAO {
                sqlScript.setInt(4, product.getSupplierId());
                sqlScript.setInt(5, product.getId());
                sqlScript.executeUpdate();
+               System.out.println("Product updated successfully.");
           } catch (Exception e) {
-               e.printStackTrace();
+               System.out.println("The update could not be completed.");
           }
      }
 
@@ -95,8 +96,9 @@ public class ProductDAO {
                PreparedStatement sqlScript = connection.prepareStatement(DELETE_PRODUCT_SQL);
                sqlScript.setInt(1, id);
                sqlScript.executeUpdate();
+               System.out.println("Product deleted successfully.");
           } catch (Exception e) {
-               e.printStackTrace();
+               System.out.println("The product is associated with a sale. It cannot be deleted.");
           }
      }
 }

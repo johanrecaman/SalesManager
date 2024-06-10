@@ -95,6 +95,7 @@ public class CustomerController {
                             validInput = true;
                         }
                         else if (field.getType() == LocalDate.class){
+                            System.out.println("Enter date format (dd-MM-yyyy):");
                             String dateInput = scanner.nextLine();
                             if(!dateInput.isEmpty()){
                                 try{

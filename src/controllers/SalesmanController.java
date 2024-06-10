@@ -42,6 +42,7 @@ public class SalesmanController {
                         field.set(salesman, scanner.nextLine());
                         validInput = true;
                     } else if (field.getType() == LocalDate.class) {
+                        System.out.println("Enter date format (dd-MM-yyyy):");
                         String dateInput = scanner.nextLine();
                         try {
                             LocalDate date = LocalDate.parse(dateInput, java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
