@@ -14,6 +14,7 @@ public class SalesmanDAO {
     private Connection connection = Database.getConnection();
     private final String ADD_SALESMAN_SQL = "INSERT INTO Salesman (name, lastname, email, password, birth_date, phone, cpf, city, state, country, address, registration_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
     private final String READ_SALESMAN_SQL = "SELECT * FROM Salesman";
+        
     private final String READ_SALESMAN_BY_ID_SQL = "SELECT * FROM Salesman WHERE id = ?";
     private final String UPDATE_SALESMAN_SQL = "UPDATE Salesman SET name = ?, lastname = ?, email = ?, password = ?, birth_date = ?, phone = ?, cpf = ?, city = ?, state = ?, country = ?, address = ?, registration_date = ? WHERE id = ?";
     private final String DELETE_SALESMAN_SQL = "DELETE FROM Salesman WHERE id = ?";
