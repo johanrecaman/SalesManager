@@ -1,5 +1,7 @@
 package src.models;
 
+import java.time.LocalDate;
+
 public class Sale {
     private int id;
     private int customerId;
@@ -9,8 +11,9 @@ public class Sale {
     private int interestRate;
     private double price;
     private double totalValue;
+    private LocalDate date;
 
-    public Sale(int id, int customerId, int productId, String paymentMethod, int installments, int interestRate, double price, double totalValue) {
+    public Sale(int id, int customerId, int productId, String paymentMethod, int installments, int interestRate, double price, double totalValue, LocalDate date) {
         this.id = id;
         this.customerId = customerId;
         this.productId = productId;
@@ -19,6 +22,7 @@ public class Sale {
         this.interestRate = interestRate;
         this.price = price;
         this.totalValue = totalValue;
+        this.date = date;
     }
 
     public int getId() {
@@ -48,6 +52,10 @@ public class Sale {
 
     public double getPrice() {
         return price;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 
     public double getTotalValue() {

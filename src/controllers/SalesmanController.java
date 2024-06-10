@@ -53,8 +53,67 @@ public class SalesmanController {
         salesmanDAO.addSalesman(salesman);
     }
 
+    public void updateSalesman(int id){
+        Salesman salesman = salesmanDAO.getSalesman(id);
+        if(salesman == null){
+            System.out.println("Salesman not found");
+            return;
+        }
+        Class<?> salesmanClass = Salesman.class;
+        Field[] fields = salesmanClass.getDeclaredFields();
+
+        for (Field field : fields) {
+            field.setAccessible(true);
+            boolean validInput = false;
+
+            while (!validInput) {
+                if (field.getName().equals("id")) {
+                    validInput = true;
+                    continue;
+                }
+                menuView.clearScreen();
+                try {
+                    System.out.println("Enter " + field.getName() + " [" + field.get(salesman) + "]: ");
+                } catch (IllegalArgumentException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    if (field.getType() == String.class) {
+                        String input = scanner.nextLine();
+                        if(!input.isEmpty()){
+                            field.set(salesman, input);
+                        }
+                        validInput = true;
+                    } else if (field.getType() == LocalDate.class) {
+                        String dateInput = scanner.nextLine();
+                        if(!dateInput.isEmpty()){
+                            try {
+                                LocalDate date = LocalDate.parse(dateInput, java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                                field.set(salesman, date);
+                                validInput = true;
+                            } catch (Exception e) {
+                                System.out.println("Invalid date format. Please use yyyy-MM-dd");
+                            }
+                        } else {
+                            validInput = true;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        salesmanDAO.updateSalesman(salesman);
+    }
+
     public List<Salesman> getSalesmen() {
         return salesmanDAO.getSalesmen();
+    }
+
+    public void deleteSalesman(int id){
+        salesmanDAO.deleteSalesman(id);
     }
 
 }

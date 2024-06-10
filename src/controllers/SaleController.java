@@ -1,6 +1,8 @@
 package src.controllers;
 
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +12,7 @@ import src.views.MenuView;
 import src.models.Sale;
 import src.models.Product;
 import src.models.Customer;
-
-
+import src.models.DailyReport;
 import src.dao.SaleDAO;
 
 
@@ -19,7 +20,7 @@ public class SaleController {
     Scanner scanner = new Scanner(System.in);
     MenuView menu = new MenuView();
 
-    Sale sale = new Sale(-1, -1, -1, "", 1, -1, -1, -1);
+    Sale sale = new Sale(-1, -1, -1, "", 1, -1, -1, -1, LocalDate.now());
     SaleDAO saleDAO = new SaleDAO();
 
     public void addSale(){
@@ -97,6 +98,19 @@ public class SaleController {
                         field.set(sale, Double.parseDouble(scanner.nextLine()));
                         validInput = true;
                     }
+                    else if (field.getType() == LocalDate.class){
+                        menu.clearScreen();
+                        System.out.println("Enter date (dd-MM-yyyy): ");
+                        String dateInput = scanner.nextLine();
+                        try{
+                            LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                            field.set(sale, date);
+                            validInput = true;
+                        }
+                        catch(Exception e){
+                            System.out.println("Invalid date format. Please use dd-MM-yyyy");
+                        }
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }                
@@ -107,5 +121,9 @@ public class SaleController {
 
     public List<Sale> getSales(){
         return saleDAO.getSales();
+    }
+
+    public DailyReport getDailyReport(LocalDate date){
+        return saleDAO.getDailyReport(date);
     }
 }

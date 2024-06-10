@@ -41,12 +41,14 @@ public class CustomerController {
                    else if (field.getType() == LocalDate.class){
                        String dateInput = scanner.nextLine();
                        try{
-                           LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                           field.set(customer, date);
-                           validInput = true;
+                            menu.clearScreen();
+                            System.out.println("Enter date format (dd-MM-yyyy):");
+                            LocalDate date = LocalDate.parse(dateInput, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                            field.set(customer, date);
+                            validInput = true;
                        }
                        catch(Exception e){
-                           System.out.println("Invalid date format. Please use dd-MM-yyyy");
+                           System.out.println("Invalid date format.");
                        }
                    }
                 } catch (Exception e) {
